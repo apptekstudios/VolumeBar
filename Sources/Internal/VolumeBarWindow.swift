@@ -77,7 +77,7 @@ internal extension VolumeBarWindow {
 		
 		// Perform show animation
 		let completionHandler: VolumeBarAnimation.CompletionHandler? = { done in }
-		animation.animationBlock(self, completionHandler)
+		animation.animationBlock(self.viewController.view, completionHandler)
 	}
 	
 	internal func hide(withAnimation animation: VolumeBarAnimation) {

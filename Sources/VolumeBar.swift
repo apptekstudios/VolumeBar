@@ -73,6 +73,8 @@ public extension VolumeBar {
 
 		let viewController = VolumeBarViewController()
     self.viewController = viewController
+    viewController.style = style
+
 		self.window = VolumeBarWindow(viewController: viewController)
 		
 		// Start observing changes in system volume
