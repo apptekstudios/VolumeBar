@@ -29,12 +29,12 @@ internal final class VolumeBarWindow: UIWindow {
 	fileprivate static let hiddenWindowLevel = UIWindowLevelNormal
 	fileprivate static let visibleWindowLevel = UIWindowLevelStatusBar + 1
 	
-	internal let viewController: UIViewController
+	internal let viewController: VolumeBarViewController
 	
 	/// A standard iOS `MPVolumeView` that never appears but is necessary to hide the system volume HUD.
 	private let systemVolumeView: MPVolumeView
 	
-	internal required init(viewController: UIViewController) {
+	internal required init(viewController: VolumeBarViewController) {
 		self.viewController = viewController
 		
 		// Add a non-hidden MPVolumeView with a zero frame to prevent the system volume HUD from showing
@@ -44,7 +44,7 @@ internal final class VolumeBarWindow: UIWindow {
 		systemVolumeView.showsRouteButton = false
 		systemVolumeView.alpha = 0.0001
 		
-		super.init(frame: .zero)
+		super.init(frame: UIScreen.main.bounds)
 		
 		isUserInteractionEnabled = false
 		isHidden = false
@@ -59,37 +59,11 @@ internal final class VolumeBarWindow: UIWindow {
 	required internal init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-}
 
-internal extension VolumeBarWindow {
-	internal func apply(style: VolumeBarStyle) {
-		// Round corners
-		viewController.view.layer.masksToBounds = true
-		viewController.view.layer.cornerRadius = style.cornerRadius
-		
-		// Background color
-		self.backgroundColor = style.backgroundColor
-		
-		// Get system edge insets
-		var systemEdgeInsets = UIEdgeInsets.zero
-		if #available(iOS 11.0, *), style.respectsSafeAreaInsets {
-			systemEdgeInsets = safeAreaInsets
-		}
-		
-		// Set window frame
-		let windowX = CGFloat(0)
-		let windowY = CGFloat(0)
-		let windowWidth = abs(max(UIScreen.main.bounds.width, UIApplication.shared.statusBarFrame.width))
-		let windowHeight = abs(max(systemEdgeInsets.top + style.edgeInsets.top + style.height + style.edgeInsets.bottom, UIApplication.shared.statusBarFrame.height))
-		frame = CGRect(x: windowX, y: windowY, width: windowWidth, height: windowHeight)
-		
-		// Set view frame
-		let viewX = abs(systemEdgeInsets.left + style.edgeInsets.left)
-		let viewY = abs(systemEdgeInsets.top + style.edgeInsets.top)
-		let viewWidth = abs(windowWidth - windowX - viewX - (systemEdgeInsets.right + style.edgeInsets.right))
-		let viewHeight = abs(style.height)
-		viewController.view.frame = CGRect(x: viewX, y: viewY, width: viewWidth, height: viewHeight)
-	}
+  override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+    // Don't swallow any touches
+    return nil
+  }
 }
 
 internal extension VolumeBarWindow {

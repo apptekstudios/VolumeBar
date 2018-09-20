@@ -31,13 +31,13 @@ class ViewController: UIViewController, UIScrollViewDelegate {
 	
 	let likeInstagramButton: UIButton = {
 		return VolumeBarSampleButton("Use Instagram Style") { _ in
-			VolumeBar.shared.style = .likeInstagram
+			VolumeBar.shared.style = .fullWidthContinuous
 		}
 	}()
 	
 	let likeSnapchatButton: UIButton = {
 		return VolumeBarSampleButton("Use Snapchat Style") { _ in
-			VolumeBar.shared.style = .likeSnapchat
+			VolumeBar.shared.style = .fullWidthSegmented
 		}
 	}()
 	
@@ -95,7 +95,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
 		try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
 		
 		// Initial style
-		VolumeBar.shared.style = .likeInstagram
+		VolumeBar.shared.style = .fullWidthContinuous
 		VolumeBar.shared.start()
 	}
 }

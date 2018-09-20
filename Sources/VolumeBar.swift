@@ -52,16 +52,13 @@ public final class VolumeBar {
 	/// The current style of VolumeBar.
 	public var style: VolumeBarStyle = VolumeBarStyle() {
 		didSet {
-			window?.apply(style: style)
-			
-			if let stackView = view as? VolumeBarStackView {
-				stackView.apply(style: style)
-			}
+			viewController?.style = style
 		}
 	}
 	
 	// MARK: Internal
 	internal var window: VolumeBarWindow?
+  internal var viewController: VolumeBarViewController?
 	internal var timer: Timer?
 	internal var systemVolumeManager: SystemVolumeManager?
 }
@@ -73,24 +70,15 @@ public extension VolumeBar {
 	public func start() {
 		// If we have a systemVolumeManager, we're already started.
 		guard systemVolumeManager == nil else { return }
-		
-		let stackView = VolumeBarStackView()
-		stackView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		
-		let viewController = UIViewController()
-		viewController.view.addSubview(stackView)
-		
-		self.view = stackView
+
+		let viewController = VolumeBarViewController()
+    self.viewController = viewController
 		self.window = VolumeBarWindow(viewController: viewController)
-		
-		// Initial style
-		stackView.apply(style: style)
-		window?.apply(style: style)
 		
 		// Start observing changes in system volume
 		systemVolumeManager = SystemVolumeManager()
 		systemVolumeManager?.addObserver(self)
-		systemVolumeManager?.addObserver(stackView)
+		systemVolumeManager?.addObserver(viewController)
 	}
 	
 	/// Stop VolumeBar from automatically showing when the volume changes.

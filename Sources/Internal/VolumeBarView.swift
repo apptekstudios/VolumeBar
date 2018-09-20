@@ -26,59 +26,71 @@ import UIKit
 import AVFoundation
 
 /// The internal view used by `VolumeBar`.
-internal final class VolumeBarStackView: UIStackView {
-	internal let trackView: UIView
+internal final class VolumeBarView: UIView {
+  internal var style: VolumeBarStyle = VolumeBarStyle() {
+    didSet {
+      applyStyle()
+    }
+  }
+  
+	internal let stackView = UIStackView()
 	
 	// MARK: - Init
-	public required init() {
-		trackView = UIView()
-		
+	internal init() {
 		super.init(frame: .zero)
 		
 		// Layout properties
-		axis = .horizontal
-		distribution = .fillEqually
-		
-		// Add track view
-		trackView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-		insertSubview(trackView, at: 0)
+		stackView.axis = .horizontal
+		stackView.distribution = .fillEqually
+    addSubview(stackView)
+    applyStyle()
 	}
 	
 	public required init(coder aDecoder: NSCoder) {
 		fatalError("Please use VolumeBar.shared instead of instantiating VolumeBarStackView directly.")
 	}
 
-	internal func apply(style: VolumeBarStyle) {
-		// Layout
-		self.spacing = style.segmentSpacing
+	internal func applyStyle() {
+    //Track Color
+    backgroundColor = style.trackTintColor
+
+    //Corner Radius
+    layer.masksToBounds = true
+    layer.cornerRadius = style.cornerRadius
+
+    // Layout
+		stackView.spacing = style.segmentSpacing
 		
 		// Remove existing segment views
-		arrangedSubviews.forEach(removeArrangedSubview)
+		stackView.arrangedSubviews.forEach(stackView.removeArrangedSubview)
 		
 		// Add segment views
-		(0..<style.segmentCount).map { _ in UIView() }.forEach(self.addArrangedSubview)
-		
-		// Colors
-		trackView.backgroundColor = style.trackTintColor
-		arrangedSubviews.forEach { (subview) in
-			subview.backgroundColor = style.progressTintColor
-		}
+    (0..<style.segmentCount).map { _ in UIView() }.forEach {
+      stackView.addArrangedSubview($0)
+      //Segment Color
+      $0.backgroundColor = style.progressTintColor
+    }
 	}
+
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    stackView.frame = bounds
+  }
 }
 
-extension VolumeBarStackView: SystemVolumeObserver {
+extension VolumeBarView {
 	internal func volumeChanged(to volume: Float) {
 		// iOS has 16 volume steps (when the volume is 0%, pressing volume up
 		// exactly 16 times will cause the volume to reach 100%). This value
 		// was experimentally determined and could change in the future.
 		let systemVolumeStepsCount = Float(16)
 		
-		let segments = Float(arrangedSubviews.count)
+		let segments = Float(stackView.arrangedSubviews.count)
 		let depthPerSegment = ceil(systemVolumeStepsCount / segments)
 		let steps = segments * depthPerSegment
 		
 		var remaining = round(volume * steps) / Float(depthPerSegment)
-		arrangedSubviews.forEach { (segment) in
+		stackView.arrangedSubviews.forEach { (segment) in
 			let currentSegmentAlpha = max(0, min(1, remaining))
 			segment.alpha = CGFloat(currentSegmentAlpha)
 			remaining = max(remaining - currentSegmentAlpha, 0)

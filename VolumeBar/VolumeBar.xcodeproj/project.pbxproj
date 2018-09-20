@@ -8,26 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		0349E42D2043FB870062E1A0 /* VolumeBarAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0349E4242043FB870062E1A0 /* VolumeBarAnimation.swift */; };
-		0349E42E2043FB870062E1A0 /* VolumeBarStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0349E4262043FB870062E1A0 /* VolumeBarStackView.swift */; };
 		0349E42F2043FB870062E1A0 /* SystemVolumeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0349E4272043FB870062E1A0 /* SystemVolumeManager.swift */; };
 		0349E4302043FB870062E1A0 /* VolumeBarWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0349E4282043FB870062E1A0 /* VolumeBarWindow.swift */; };
 		0349E4312043FB870062E1A0 /* VolumeBarAnimation+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0349E4292043FB870062E1A0 /* VolumeBarAnimation+Presets.swift */; };
 		0349E4322043FB870062E1A0 /* VolumeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0349E42A2043FB870062E1A0 /* VolumeBar.swift */; };
 		0349E4332043FB870062E1A0 /* VolumeBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0349E42B2043FB870062E1A0 /* VolumeBarStyle.swift */; };
 		0349E4342043FB870062E1A0 /* VolumeBarStyle+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0349E42C2043FB870062E1A0 /* VolumeBarStyle+Presets.swift */; };
+		B8DE69D421533602004BFC30 /* VolumeBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DE69D221533602004BFC30 /* VolumeBarView.swift */; };
+		B8DE69D521533602004BFC30 /* VolumeBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DE69D321533602004BFC30 /* VolumeBarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		031FFF921C8C148300879183 /* VolumeBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VolumeBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		031FFFAD1C8C166B00879183 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
 		0349E4242043FB870062E1A0 /* VolumeBarAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeBarAnimation.swift; sourceTree = "<group>"; };
-		0349E4262043FB870062E1A0 /* VolumeBarStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeBarStackView.swift; sourceTree = "<group>"; };
 		0349E4272043FB870062E1A0 /* SystemVolumeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemVolumeManager.swift; sourceTree = "<group>"; };
 		0349E4282043FB870062E1A0 /* VolumeBarWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeBarWindow.swift; sourceTree = "<group>"; };
 		0349E4292043FB870062E1A0 /* VolumeBarAnimation+Presets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VolumeBarAnimation+Presets.swift"; sourceTree = "<group>"; };
 		0349E42A2043FB870062E1A0 /* VolumeBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeBar.swift; sourceTree = "<group>"; };
 		0349E42B2043FB870062E1A0 /* VolumeBarStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeBarStyle.swift; sourceTree = "<group>"; };
 		0349E42C2043FB870062E1A0 /* VolumeBarStyle+Presets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VolumeBarStyle+Presets.swift"; sourceTree = "<group>"; };
+		B8DE69D221533602004BFC30 /* VolumeBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeBarView.swift; sourceTree = "<group>"; };
+		B8DE69D321533602004BFC30 /* VolumeBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,9 +77,10 @@
 		0349E4252043FB870062E1A0 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
-				0349E4262043FB870062E1A0 /* VolumeBarStackView.swift */,
 				0349E4272043FB870062E1A0 /* SystemVolumeManager.swift */,
 				0349E4282043FB870062E1A0 /* VolumeBarWindow.swift */,
+				B8DE69D221533602004BFC30 /* VolumeBarView.swift */,
+				B8DE69D321533602004BFC30 /* VolumeBarViewController.swift */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -161,10 +164,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0349E4332043FB870062E1A0 /* VolumeBarStyle.swift in Sources */,
+				B8DE69D421533602004BFC30 /* VolumeBarView.swift in Sources */,
+				B8DE69D521533602004BFC30 /* VolumeBarViewController.swift in Sources */,
 				0349E42F2043FB870062E1A0 /* SystemVolumeManager.swift in Sources */,
 				0349E4302043FB870062E1A0 /* VolumeBarWindow.swift in Sources */,
 				0349E42D2043FB870062E1A0 /* VolumeBarAnimation.swift in Sources */,
-				0349E42E2043FB870062E1A0 /* VolumeBarStackView.swift in Sources */,
 				0349E4312043FB870062E1A0 /* VolumeBarAnimation+Presets.swift in Sources */,
 				0349E4342043FB870062E1A0 /* VolumeBarStyle+Presets.swift in Sources */,
 				0349E4322043FB870062E1A0 /* VolumeBar.swift in Sources */,

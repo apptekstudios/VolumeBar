@@ -28,71 +28,34 @@ public extension VolumeBarStyle {
 
 	// MARK: Presets
 
-	/// A volume bar style like Instagram, where the bar is a continuous progress view
-	/// that displays to the left of the notch on iPhone X and covers the full width
-	/// of the iOS status bar on all other iOS devices.
-	public static let likeInstagram: VolumeBarStyle = UIDevice.current.volumeBar_isiPhoneX ? .leftOfNotch : .fullWidthContinuous
-	
 	/// A volume bar style like Snapchat, where the bar is a segmented progress view
 	/// that displays under the notch and status bar on iPhone X (respecting the device's
 	/// safe area insets) and covers the iOS status bar on all other iOS devices.
-	public static let likeSnapchat: VolumeBarStyle = {
+	public static let fullWidthSegmented: VolumeBarStyle = {
 		var style = VolumeBarStyle()
-		style.height = 5
-		style.respectsSafeAreaInsets = UIDevice.current.volumeBar_isiPhoneX
-		style.edgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 0, right: 2)
+		style.edgeInsets = UIEdgeInsets.zero
 		style.segmentSpacing = 2
 		style.segmentCount = 8
 		
 		style.progressTintColor = #colorLiteral(red: 0.2558486164, green: 0.2558816075, blue: 0.2558295727, alpha: 1)
 		style.trackTintColor = .white
-		style.backgroundColor = .white
 		return style
 	}()
 	
 	/// A volume bar style that displays a continuous progress view and has minimal insets.
 	public static let fullWidthContinuous: VolumeBarStyle = {
 		var style = VolumeBarStyle()
-		style.height = 5
-		style.cornerRadius = 3
-		style.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10)
+		style.edgeInsets = UIEdgeInsets.zero
 		
 		style.progressTintColor = #colorLiteral(red: 0.2558486164, green: 0.2558816075, blue: 0.2558295727, alpha: 1)
 		style.trackTintColor = #colorLiteral(red: 0.8537222743, green: 0.8538187146, blue: 0.8536666036, alpha: 1)
-		style.backgroundColor = .white
-		return style
-	}()
-	
-	/// A volume bar style that displays to the left of the notch on iPhone X.
-	public static let leftOfNotch: VolumeBarStyle = {
-		var style = VolumeBarStyle()
-		style.height = 5
-		style.cornerRadius = 3
-		style.edgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 5, right: 300)
-		
-		style.progressTintColor = #colorLiteral(red: 0.2558486164, green: 0.2558816075, blue: 0.2558295727, alpha: 1)
-		style.trackTintColor = #colorLiteral(red: 0.8537222743, green: 0.8538187146, blue: 0.8536666036, alpha: 1)
-		style.backgroundColor = .white
-		return style
-	}()
-	
-	/// A volume bar style that displays to the right of the notch on iPhone X.
-	public static let rightOfNotch: VolumeBarStyle = {
-		var style = VolumeBarStyle()
-		style.height = 5
-		style.cornerRadius = 3
-		style.edgeInsets = UIEdgeInsets(top: 20, left: 300, bottom: 5, right: 20)
-		
-		style.progressTintColor = #colorLiteral(red: 0.2558486164, green: 0.2558816075, blue: 0.2558295727, alpha: 1)
-		style.trackTintColor = #colorLiteral(red: 0.8537222743, green: 0.8538187146, blue: 0.8536666036, alpha: 1)
-		style.backgroundColor = .white
 		return style
 	}()
 }
 
 /// :nodoc:
-public extension UIDevice {
-	public var volumeBar_isiPhoneX: Bool {
+/*public extension UIDevice {
+	public var volumeBar_hasNotch: Bool {
 		#if arch(i386) || arch(x86_64)
 			// We're running on the simulator, so use that to get the simulated model identifier.
 			let identifier = ProcessInfo.processInfo.environment["SIMULATOR_MODEL_IDENTIFIER"]
@@ -106,7 +69,17 @@ public extension UIDevice {
 				return identifier + String(UnicodeScalar(UInt8(value)))
 			}
 		#endif
-		
+    if let modelNumber = identifier.components(separatedBy: CharacterSet.decimalDigits.inverted).compactMap({ string -> (Int?) in
+      if string == "" {return nil} else {return Int(string)}
+    }).first
+    {
+      if modelNumber >= 11 {
+        //iPhone XS,XR
+        return true
+      }
+    }
+    //If iPhone X
 		return identifier == "iPhone10,3" || identifier == "iPhone10,6"
 	}
 }
+*/

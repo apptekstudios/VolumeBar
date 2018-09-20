@@ -28,7 +28,7 @@ public struct VolumeBarStyle {
 	// MARK: Layout
 	
 	/// The height of the bar that will be displayed on screen.
-	public var height: CGFloat = 10
+	public var height: CGFloat?
 	
 	/// Insets from the top edge of the device screen.
 	///
@@ -39,7 +39,7 @@ public struct VolumeBarStyle {
 	/// inset by the sum of the safe area insets of the device and `edgeInsets`.
 	///
 	/// - seealso: `respectsSafeAreaInsets`
-	public var edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+	public var edgeInsets: UIEdgeInsets = UIEdgeInsets.zero
 	
 	/// Whether or not VolumeBar should respect `safeAreaInsets` when displaying.
 	///
@@ -72,8 +72,4 @@ public struct VolumeBarStyle {
 	
 	/// The background color of the track.
 	public var trackTintColor: UIColor = UIColor.black.withAlphaComponent(0.5)
-	
-	/// The background color behind the track view.
-	/// This should match the color of the view behind the VolumeBar, which might be the color of your navigation bar.
-	public var backgroundColor: UIColor = .white
 }
