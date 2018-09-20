@@ -24,6 +24,7 @@
 
 import Foundation
 import AVFoundation
+import UIKit
 
 @objc internal protocol SystemVolumeObserver {
 	func volumeChanged(to volume: Float)
