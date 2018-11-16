@@ -67,27 +67,31 @@ internal final class VolumeBarWindow: UIWindow {
 }
 
 internal extension VolumeBarWindow {
-	internal func show(withAnimation animation: VolumeBarAnimation) {
-		// Unhide the view so we can animate it
-		guard let view = viewController.view, view.isHidden else { return }
-		view.isHidden = false
-		
-		// Show window
-		windowLevel = VolumeBarWindow.visibleWindowLevel
-		
-		// Perform show animation
-		let completionHandler: VolumeBarAnimation.CompletionHandler? = { done in }
-		animation.animationBlock(self.viewController.view, completionHandler)
-	}
-	
-	internal func hide(withAnimation animation: VolumeBarAnimation) {
-		// Hide the view and reset the window level once the hide animation completes
-		let completionHandler: VolumeBarAnimation.CompletionHandler? = { done in
-			self.viewController.view.isHidden = true
-			self.windowLevel = VolumeBarWindow.hiddenWindowLevel
-		}
-		
-		// Perform hide animation
-		animation.animationBlock(self, completionHandler)
-	}
+    internal func show(withAnimation animation: VolumeBarAnimation) {
+        // Show window
+        windowLevel = VolumeBarWindow.visibleWindowLevel
+        
+        // Unhide the view so we can animate it
+        guard let view = viewController.view, view.isHidden else { return }
+        view.isHidden = false
+        
+        // Perform show animation
+        let completionHandler: VolumeBarAnimation.CompletionHandler? = { done in }
+        animation.animationBlock(view, completionHandler)
+    }
+    
+    internal func hide(withAnimation animation: VolumeBarAnimation) {
+        guard let view = viewController.view else {
+            self.windowLevel = VolumeBarWindow.hiddenWindowLevel
+            return
+        }
+        // Hide the view and reset the window level once the hide animation completes
+        let completionHandler: VolumeBarAnimation.CompletionHandler? = { done in
+            self.viewController.view.isHidden = true
+            self.windowLevel = VolumeBarWindow.hiddenWindowLevel
+        }
+        
+        // Perform hide animation
+        animation.animationBlock(view, completionHandler)
+    }
 }

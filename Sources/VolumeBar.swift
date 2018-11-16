@@ -58,7 +58,7 @@ public final class VolumeBar {
 	
 	// MARK: Internal
 	internal var window: VolumeBarWindow?
-  internal var viewController: VolumeBarViewController?
+    internal var viewController: VolumeBarViewController?
 	internal var timer: Timer?
 	internal var systemVolumeManager: SystemVolumeManager?
 }
@@ -72,8 +72,8 @@ public extension VolumeBar {
 		guard systemVolumeManager == nil else { return }
 
 		let viewController = VolumeBarViewController()
-    self.viewController = viewController
-    viewController.style = style
+        self.viewController = viewController
+        viewController.style = style
 
 		self.window = VolumeBarWindow(viewController: viewController)
 		
